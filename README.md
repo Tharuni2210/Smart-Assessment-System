@@ -30,7 +30,7 @@ Run server
     python manage.py runserver
 👨‍💻 Author
 Tharuni.P - Computer Science & Data Science
-GitHub: https://github.com/deepakjha018
+GitHub: https://github.com/Tharuni2210
 
 📌 Future Scope
 AI-based Question Generation
