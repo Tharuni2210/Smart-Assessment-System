@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Select Category</h2>
+
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-4 mb-4">
+            <div class="card text-center shadow p-3">
+
+                {% if category.icon %}
+                    <img src="{{ category.icon.url }}" 
+                         class="img-fluid mb-3" 
+                         style="height:120px; object-fit:contain;">
+                {% else %}
+                    <img src="https://via.placeholder.com/120" class="mb-3">
+                {% endif %}
+
+                <h4>{{ category.name }}</h4>
+
+                <a href="/categories/{{ category.id }}/" 
+                   class="btn btn-primary mt-2">
+                   Select
+                </a>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 text-center">Choose a Category</h2>
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm text-center p-3">
+                {% if category.icon %}
+                    <img src="{{ category.icon.url }}" height="100" class="mb-3">
+                {% endif %}
+                <h4>{{ category.name }}</h4>
+                <a href="/categories/{{ category.id }}/" class="btn btn-primary mt-2">View</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

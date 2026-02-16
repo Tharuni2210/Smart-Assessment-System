@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width:600px;">
+    <h2>My Profile</h2>
+
+    <div class="card p-3 shadow">
+        {% if user.userprofile.profile_picture %}
+            <img src="{{ user.userprofile.profile_picture.url }}" width="150">
+        {% endif %}
+
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Bio:</strong> {{ user.userprofile.bio }}</p>
+        <p><strong>Preferences:</strong> {{ user.userprofile.preferences }}</p>
+
+        <hr>
+
+        <h5>Update Profile</h5>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

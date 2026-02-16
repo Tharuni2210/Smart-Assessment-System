@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width:600px;">
+    <h2 class="mb-4">Quiz Settings - {{ subcategory.name }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label><strong>Difficulty Level:</strong></label>
+            {{ form.difficulty }}
+        </div>
+
+        <div class="mb-3">
+            <label><strong>Number of Questions:</strong></label>
+            {{ form.question_count }}
+        </div>
+
+        <div class="mb-3 form-check">
+            {{ form.timer_enabled }}
+            <label class="form-check-label">Enable Timer</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            Start Quiz
+        </button>
+    </form>
+</div>
+{% endblock %}
