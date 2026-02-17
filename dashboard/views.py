@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -11,7 +11,7 @@ def home(request):
 def dashboard(request):
     from quizzes.models import Category
     categories = Category.objects.all()
-=======
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -24,5 +24,5 @@ def home(request):
 def dashboard(request):
     from quizzes.models import Category
     categories = Category.objects.all()
->>>>>>> a86c6a1 (1st commit)
+
     return render(request, 'dashboard.html', {'categories': categories})
