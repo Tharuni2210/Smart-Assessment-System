@@ -41,6 +41,7 @@ def quiz_settings(request, subcategory_id):
         'subcategory': subcategory
     })
 
+
 def start_quiz(request):
     settings = request.session.get('quiz_settings')
 
