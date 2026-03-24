@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from quizzes.models import QuizAttempt, QuizResult
@@ -54,7 +54,7 @@ def dashboard(request):
         'wrong': wrong,
         'incomplete': incomplete
     })
-=======
+
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -83,4 +83,4 @@ def dashboard(request):
     categories = Category.objects.all()
 
     return render(request, 'dashboard.html', {'categories': categories})
->>>>>>> 9ef381430e7e615d936ccef98338886139338377
+
