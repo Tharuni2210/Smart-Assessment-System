@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from django.contrib import admin
 from django.urls import path
 from dashboard.views import home, dashboard
@@ -30,7 +30,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
 
 from django.contrib import admin
 from django.urls import path
@@ -90,4 +89,3 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> 9ef381430e7e615d936ccef98338886139338377
