@@ -1,32 +1,124 @@
-{% extends 'base.html' %}
+<div class="dashboard">
 
-{% block content %}
-<div class="container">
-    <h2 class="text-center mb-4">Select Category</h2>
+  <div class="card stat-card">
+    <h2>{{ total_quizzes }}</h2>
+    <p>Total Quizzes</p>
+  </div>
 
-    <div class="row">
-        {% for category in categories %}
-        <div class="col-md-4 mb-4">
-            <div class="card text-center shadow p-3">
+  <div class="card stat-card">
+    <h2>{{ avg_score }}%</h2>
+    <p>Average Score</p>
+  </div>
 
-                {% if category.icon %}
-                    <img src="{{ category.icon.url }}" 
-                         class="img-fluid mb-3" 
-                         style="height:120px; object-fit:contain;">
-                {% else %}
-                    <img src="https://via.placeholder.com/120" class="mb-3">
-                {% endif %}
+  <div class="card stat-card">
+    <h2>{{ best_score }}%</h2>
+    <p>Best Score</p>
+  </div>
 
-                <h4>{{ category.name }}</h4>
-
-                <a href="/categories/{{ category.id }}/" 
-                   class="btn btn-primary mt-2">
-                   Select
-                </a>
-
-            </div>
-        </div>
-        {% endfor %}
+  <div class="card stat-card">
+    <h2>{{ performance }}%</h2>
+    <p>Performance</p>
+    <div class="progress-bar">
+      <div class="progress" style="width: {{ performance }}%"></div>
     </div>
+  </div>
+
+ <div class="chart-grid">
+
+    <div class="chart-grid">
+
+    <!-- BAR -->
+    <div class="card chart-card">
+        <h4>Performance</h4>
+        <div style="width:350px; height:220px; margin:auto;">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
+
+    <!-- PIE -->
+    <div class="card chart-card">
+        <h4>Result Split</h4>
+        <div style="width:200px; height:200px; margin:auto;">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
 </div>
-{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const labels = {{ labels|safe }};
+const scores = {{ scores|safe }};
+
+const correct = {{ correct }};
+const wrong = {{ wrong }};
+
+// ✅ BAR CHART (SMALL)
+new Chart(document.getElementById("barChart"), {
+    type: "bar",
+    data: {
+        labels: labels,
+        datasets: [{
+            label: "Score",
+            data: scores,
+            backgroundColor: "#4f46e5",
+            borderRadius: 6,
+            barThickness: 30   // 🔥 SMALL BAR WIDTH
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,  // 🔥 MUST
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        }
+    }
+});
+
+// ✅ PIE CHART (SMALL DONUT)
+new Chart(document.getElementById("pieChart"), {
+    type: "doughnut",
+    data: {
+        labels: ["Correct", "Wrong"],
+        datasets: [{
+            data: [correct, wrong],
+            backgroundColor: ["#22c55e", "#ef4444"]
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,  // 🔥 MUST
+        cutout: "70%",
+        plugins: {
+            legend: {
+                position: "bottom",
+                labels: {
+                    boxWidth: 12
+                }
+            }
+        }
+    }
+});
+</script>
+
+</div>
+  <div class="card incomplete-card">
+    <h3>Incomplete Quizzes</h3>
+    <ul>
+      {% for quiz in incomplete_quizzes %}
+      <li>{{ quiz.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+</div>

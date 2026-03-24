@@ -4,7 +4,7 @@
 <div class="container" style="max-width:600px;">
     <h2 class="mb-4">Quiz Settings - {{ subcategory.name }}</h2>
 
-    <form method="POST">
+    <form method="POST" action="{% url 'generate_ai' subcategory.id %}">
         {% csrf_token %}
 
         <div class="mb-3">
@@ -14,17 +14,18 @@
 
         <div class="mb-3">
             <label><strong>Number of Questions:</strong></label>
-            {{ form.question_count }}
+            <input type="number" name="question_count" min="1" max="10" required>
         </div>
 
-        <div class="mb-3 form-check">
-            {{ form.timer_enabled }}
-            <label class="form-check-label">Enable Timer</label>
+        <div class="mb-3">
+            <label>Duration (seconds)</label>
+            <input type="number" name="duration" value="60">
         </div>
 
         <button type="submit" class="btn btn-primary w-100">
             Start Quiz
         </button>
+
     </form>
 </div>
 {% endblock %}

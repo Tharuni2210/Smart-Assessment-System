@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container text-center">
+
     <h2>Quiz Configuration Summary</h2>
 
     <p><strong>Subcategory:</strong> {{ settings.subcategory_name }}</p>
@@ -10,7 +11,14 @@
     <p><strong>Timer Enabled:</strong> {{ settings.timer_enabled }}</p>
 
     <div class="alert alert-info mt-4">
-        (Next step: Question generation will be implemented here.)
+        Ready to start your quiz!
     </div>
+
+    <!-- ✅ START QUIZ BUTTON -->
+    <a href="{% url 'start_quiz' settings.category_id %}" 
+       class="btn btn-success mt-3">
+        Start Quiz
+    </a>
+
 </div>
 {% endblock %}

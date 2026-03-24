@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import ProfileUpdateForm
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import RegisterForm,ProfileUpdateForm
+from .forms import RegisterForm
+from .forms import UserForm, UserProfileForm, UserProfile
 
 def user_login(request):
     if request.method == 'POST':
@@ -59,19 +59,30 @@ def register(request):
         form = RegisterForm()
 
     return render(request, 'register.html', {'form': form})
-
 @login_required
 def profile(request):
-    profile = request.user.userprofile
 
-    if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Profile updated successfully!")
+    user = request.user
+
+    # ✅ ensure profile exists
+    profile, created = UserProfile.objects.get_or_create(user=user)
+
+    if request.method == "POST":
+
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
             return redirect('profile')
-    else:
-        form = ProfileUpdateForm(instance=profile)
 
-    return render(request, 'profile.html', {'form': form})
+    else:
+        user_form = UserForm(instance=user)
+        profile_form = UserProfileForm(instance=profile)
+
+    return render(request, "profile.html", {
+        "user_form": user_form,
+        "profile_form": profile_form
+    })
 

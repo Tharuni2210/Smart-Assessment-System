@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Quiz</h2>
+
+<form method="POST" action="{% url 'submit_answer' %}">
+    {% csrf_token %}
+
+    <h3>Question {{ index }} of {{ total }}</h3>
+
+    <p><strong>{{ question.text }}</strong></p>
+
+    <label>
+        <input type="radio" name="answer" value="A" required>
+        {{ question.option_a }}
+    </label><br>
+
+    <label>
+        <input type="radio" name="answer" value="B">
+        {{ question.option_b }}
+    </label><br>
+
+    <label>
+        <input type="radio" name="answer" value="C">
+        {{ question.option_c }}
+    </label><br>
+
+    <label>
+        <input type="radio" name="answer" value="D">
+        {{ question.option_d }}
+    </label><br><br>
+
+    <button type="submit">Next</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container" style="max-width:600px;">
+
+<h3>Answer Feedback</h3>
+
+{% if is_correct %}
+    <p style="color:green;"><b>Correct Answer 🎉</b></p>
+{% else %}
+    <p style="color:red;"><b>Wrong Answer ❌</b></p>
+    <p><b>Correct Answer:</b> {{ correct }}</p>
+{% endif %}
+
+{% if explanation %}
+<p><b>Explanation:</b> {{ explanation }}</p>
+{% endif %}
+
+<form action="{% url 'start_quiz' %}">
+    <button class="btn btn-primary mt-3">
+        Next Question
+    </button>
+</form>
+
+</div>
+
+{% endblock %}

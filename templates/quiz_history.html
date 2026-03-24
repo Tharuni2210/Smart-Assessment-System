@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="history-page">
+
+    <!-- HEADER -->
+    <div class="history-header">
+        <div>
+            <h2>📊 Quiz History</h2>
+            <p>Analyze your performance and track your growth over time.</p>
+        </div>
+
+        <a href="{% url 'categories' %}" class="btn primary">+ New Quiz</a>
+    </div>
+
+    <!-- TABLE -->
+    <div class="history-table">
+
+        <div class="table-header">
+            <span>Topic</span>
+            <span>Score</span>
+            <span>Status</span>
+            <span>Date</span>
+            <span>Action</span>
+        </div>
+
+        {% for quiz in quizzes %}
+
+        <div class="table-row">
+
+            <div><strong>{{ quiz.topic }}</strong></div>
+
+            <div>{{ quiz.score }} / {{ quiz.total_questions }}</div>
+
+            <div>
+                {% if quiz.score >= quiz.total_questions|divisibleby:2 %}
+                    <span class="status pass">Passed</span>
+                {% else %}
+                    <span class="status fail">Failed</span>
+                {% endif %}
+            </div>
+
+            <div>{{ quiz.created_at|date:"M d, Y H:i" }}</div>
+
+            <div>
+                {% if not quiz.is_completed %}
+                    <a href="{% url 'resume_quiz' quiz.id %}" class="btn small">Resume</a>
+                {% else %}
+                    <span class="completed">Done</span>
+                {% endif %}
+            </div>
+
+        </div>
+
+        {% empty %}
+        <div class="empty-box">
+            <p>No quizzes found. Start a new quiz 🚀</p>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

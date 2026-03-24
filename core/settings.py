@@ -3,6 +3,7 @@ Django settings for core project.
 """
 
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -88,3 +89,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_URL = '/login/'
+
+OPENAI_API_KEY = "https://opentdb.com/api.php?amount=50&type=multiple"

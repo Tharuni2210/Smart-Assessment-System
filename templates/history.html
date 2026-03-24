@@ -1,0 +1,35 @@
+<h2>Quiz History</h2>
+
+<ul>
+  {% for attempt in attempts %}
+  <a href="{% url 'history' %}">Quiz History</a>
+  <h2>Quiz History</h2>
+
+<!-- ✅ Total Attempts -->
+<p><strong>Total Quizzes Attempted:</strong> {{ total_attempts }}</p>
+
+<hr>
+
+<!-- ✅ List of Past Quizzes -->
+{% for attempt in attempts %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px; border-radius:8px;">
+
+        <p><strong>Topic:</strong> {{ attempt.topic }}</p>
+
+        <p><strong>Score:</strong> {{ attempt.score }}/{{ attempt.total_questions }}</p>
+
+        <p><strong>Percentage:</strong> 
+            {{ attempt.score|floatformat:2 }}%
+        </p>
+
+        <p><strong>Date:</strong> {{ attempt.created_at }}</p>
+
+    </div>
+{% empty %}
+    <p>No quiz attempts yet</p>
+{% endfor %}
+    <li>
+      {{ attempt.quiz.topic }} - {{ attempt.score }} - {{ attempt.updated_at }}
+    </li>
+  {% endfor %}
+</ul>

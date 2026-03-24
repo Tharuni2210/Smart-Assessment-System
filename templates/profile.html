@@ -1,28 +1,74 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container" style="max-width:600px;">
-    <h2>My Profile</h2>
 
-    <div class="card p-3 shadow">
-        {% if user.userprofile.profile_picture %}
-            <img src="{{ user.userprofile.profile_picture.url }}" width="150">
-        {% endif %}
+<div class="profile-page">
 
-        <p><strong>Username:</strong> {{ user.username }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Bio:</strong> {{ user.userprofile.bio }}</p>
-        <p><strong>Preferences:</strong> {{ user.userprofile.preferences }}</p>
+    <div class="profile-card">
 
-        <hr>
+        <!-- 🔷 TOP SECTION -->
+        <div class="profile-header">
 
-        <h5>Update Profile</h5>
+            <div class="avatar-wrapper">
+                <label for="profileUpload">
+                {% if user.userprofile.profile_picture %}
+                 <img src="{{ user.userprofile.profile_picture.url }}" id="preview" class="avatar-img">
+                {% else %}
+                 <img src="{% static 'images/default.png' %}" id="preview" class="avatar-img">
+                {% endif %}
+                </label>
 
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-primary">Update</button>
-        </form>
+                <input type="file" id="profileUpload" name="profile_picture" hidden>
+                </div>
+
+            <div class="user-details">
+                <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                <p>{{ user.email }}</p>
+            </div>
+
+        </div>
+
+        <!-- 🔷 ABOUT -->
+        <div class="section">
+            <h4>About</h4>
+            <p>{{ user.userprofile.bio|default:"No bio added" }}</p>
+        </div>
+
+        <!-- 🔷 EDIT FORM -->
+        <div class="section">
+            <h4>Edit Profile</h4>
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <input type="file" id="profileUpload" name="profile_picture" hidden>
+
+                <div class="form-row">
+                    {{ user_form.first_name }}
+                    {{ user_form.last_name }}
+                </div>
+
+                {{ user_form.email }}
+                {{ profile_form.bio }}
+
+                <button class="btn-save">Save Changes</button>
+            </form>
+
+        </div>
+
     </div>
+
 </div>
+
+<script>
+document.getElementById("profileUpload").onchange = function (event) {
+    const reader = new FileReader();
+    reader.onload = function () {
+        document.getElementById("preview").src = reader.result;
+    }
+    reader.readAsDataURL(event.target.files[0]);
+};
+</script>
+
 {% endblock %}

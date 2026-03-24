@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+</head>
+<body>
+
+<h2>Quiz Result</h2>
+
+<p><strong>Total Questions:</strong> {{ total }}</p>
+<p><strong>Correct:</strong> {{ correct }}</p>
+<p><strong>Wrong:</strong> {{ wrong }}</p>
+<p><strong>Score:</strong> {{ score }}/{{ total }}</p>
+<p><strong>Percentage:</strong> {{ percentage }}%</p>
+<p><strong>Time Taken:</strong> {{ time_taken }} seconds</p>
+
+<hr>
+
+<h3>Detailed Results</h3>
+<h2>Quiz Result</h2>
+
+<p>Total Questions: {{ total }}</p>
+<p>Score: {{ score }} / {{ total }}</p>
+
+<hr>
+
+{% for ans in answers %}
+
+<div class="result-box">
+
+    <p><strong>Q:</strong> {{ ans.text }}</p>
+
+    <p><strong>Your Answer:</strong> {{ ans.selected }}</p>
+
+    <p><strong>Correct Answer:</strong> {{ ans.correct }}</p>
+
+    <p>
+        {% if ans.is_correct %}
+            <span style="color:green;">✔ Correct</span>
+        {% else %}
+            <span style="color:red;">✘ Wrong</span>
+        {% endif %}
+    </p>
+
+    <p><strong>Explanation:</strong> {{ ans.explanation }}</p>
+
+</div>
+
+
+<hr>
+
+{% empty %}
+<p>No answers found</p>
+{% endfor %}
+<br>
+<a href="{% url 'categories' %}">Go to Categories</a>
+
+</body>
+</html>
