@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 """
 Django settings for core project.
 """
@@ -92,7 +92,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/login/'
 
 OPENAI_API_KEY = "https://opentdb.com/api.php?amount=50&type=multiple"
-=======
 
 """
 Django settings for core project.
@@ -348,4 +347,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/login/'
 
->>>>>>> 9ef381430e7e615d936ccef98338886139338377
